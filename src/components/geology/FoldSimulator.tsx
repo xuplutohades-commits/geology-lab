@@ -47,7 +47,7 @@ export function FoldSimulator({
         squeeze: 0.16,
         ripple: 1.7,
       }),
-    [pressure, mode],
+    [pressure, effMode],
   );
 
   const st = foldStateOf(pressure);
@@ -124,12 +124,17 @@ export function FoldSimulator({
               </g>
             )}
 
-            {/* 核部新老标签 */}
+            {/* 核部位置：细圈示意（新老说明见图底提示条） */}
             {pressure > 0.35 && showAge && mode !== "waves" && (
-              <g opacity="0.94">
-                <circle cx={SCENE_W / 2} cy={coreY} r="13" fill={mode === "anticline" ? "#c9a169" : "#a6977d"} stroke="#ede8d9" strokeWidth="1.5" />
-                <text x={SCENE_W / 2} y={coreY + 4.5} textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#1b1a14">
-                  {effMode === "anticline" ? "老" : "新"}
+              <circle cx={SCENE_W / 2} cy={coreY} r="15" fill="none" stroke="#ede8d9" strokeWidth="1.6" strokeDasharray="5 4" opacity="0.95" />
+            )}
+
+            {/* 新老关系提示条 */}
+            {pressure > 0.35 && showAge && mode !== "waves" && (
+              <g>
+                <rect x={SCENE_W / 2 - 155} y={SCENE_H - 42} width="310" height="32" rx="16" fill="#1b1a14" opacity="0.92" />
+                <text x={SCENE_W / 2} y={SCENE_H - 21.5} textAnchor="middle" fontSize="15" fontWeight="800" fill="#ede8d9">
+                  核部岩层较{effMode === "anticline" ? "老" : "新"} · 两翼较{effMode === "anticline" ? "新" : "老"}
                 </text>
               </g>
             )}
@@ -153,10 +158,7 @@ export function FoldSimulator({
             onChange={(m) => {
               setModeState(m);
               onModeChange?.(m);
-              animRef.current?.stop();
-              setPlaying(false);
-              // 模式切换后保持可辨认的褶皱，避免画面"看起来没反应"
-              setPressure((p) => (p < 0.35 ? 0.7 : p));
+              reset();
             }}
             options={[
               { value: "anticline", label: "背斜 ↗", hint: "岩层向上弯曲" },

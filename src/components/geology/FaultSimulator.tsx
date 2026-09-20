@@ -131,20 +131,24 @@ export function FaultSimulator() {
           <line x1={FX} y1={SKY_H} x2={xB} y2={SCENE_H} stroke="#1b1a14" strokeWidth="1.2" strokeDasharray="6 5" opacity="0.55" />
 
           {/* 上盘/下盘标签 */}
-          <text x={FX - 18} y={SKY_H + 74} textAnchor="end" fontSize="15" fontWeight="800" fill="#ede8d9">
-            下盘
-          </text>
-          <text x={xB + 18} y={SCENE_H - 28} fontSize="15" fontWeight="800" fill="#ede8d9">
-            上盘
-          </text>
+          <g>
+            <rect x={FX - 118} y={SKY_H + 50} width="92" height="34" rx="17" fill="#1b1a14" opacity="0.9" />
+            <text x={FX - 72} y={SKY_H + 73} textAnchor="middle" fontSize="17" fontWeight="800" fill="#ede8d9">
+              下盘
+            </text>
+            <rect x={xB + 26} y={SCENE_H - 66} width="92" height="34" rx="17" fill="#1b1a14" opacity="0.9" />
+            <text x={xB + 72} y={SCENE_H - 43} textAnchor="middle" fontSize="17" fontWeight="800" fill="#ede8d9">
+              上盘
+            </text>
+          </g>
 
           {/* 相对运动箭头 */}
           <motion.g
             animate={{ opacity: 1 }}
             initial={{ opacity: 0.4 }}
             transition={{ duration: 0.5 }}
-            stroke="#e8c9b4"
-            strokeWidth="2.6"
+            stroke="#ede8d9"
+            strokeWidth="3.2"
             fill="none"
           >
             {strike ? (
@@ -166,21 +170,27 @@ export function FaultSimulator() {
 
           {/* 顶端力向示意 */}
           {type !== "strike" && (
-            <g stroke="#a7a08d" strokeWidth="2.2" opacity="0.75">
+            <>
+            <g stroke="#ede8d9" strokeWidth="3" opacity="0.95">
               {type === "normal" ? (
                 <>
-                  <path d="M 18 26 L 62 26 M 54 20 L 62 26 L 54 32" fill="none" />
-                  <path d="M 982 26 L 938 26 M 946 20 L 938 26 L 946 32" fill="none" />
-                  <text x={SCENE_W / 2} y={24} textAnchor="middle" fontSize="13" fontWeight="700" fill="#a7a08d">拉张</text>
+                  <path d="M 18 26 L 62 26 M 54 19 L 62 26 L 54 33" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M 982 26 L 938 26 M 946 19 L 938 26 L 946 33" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </>
               ) : (
                 <>
-                  <path d="M 18 26 L 62 26 M 26 20 L 18 26 L 26 32" fill="none" />
-                  <path d="M 982 26 L 938 26 M 974 20 L 982 26 L 974 32" fill="none" />
-                  <text x={SCENE_W / 2} y={24} textAnchor="middle" fontSize="13" fontWeight="700" fill="#a7a08d">挤压</text>
+                  <path d="M 18 26 L 62 26 M 26 19 L 18 26 L 26 33" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M 982 26 L 938 26 M 974 19 L 982 26 L 974 33" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </>
               )}
             </g>
+            <g>
+              <rect x={SCENE_W / 2 - 46} y={8} width="92" height="34" rx="17" fill="#1b1a14" opacity="0.9" />
+              <text x={SCENE_W / 2} y={31} textAnchor="middle" fontSize="17" fontWeight="800" fill="#e0a875">
+                {type === "normal" ? "拉张" : "挤压"}
+              </text>
+            </g>
+            </>
           )}
 
         </StrataScene>

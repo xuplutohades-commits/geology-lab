@@ -59,8 +59,8 @@ const BASE = `http://127.0.0.1:${PORT}`;
     await page.getByRole("tab", { name: "向斜" }).first().click();
     await page.waitForTimeout(600);
     const syncValue = await page.locator('input[type="range"]').first().evaluate((el) => el.value);
-    const syncBadge = await page.evaluate(() => /向斜/.test(document.body.innerText));
-    report.foldInteract = { before, autoFull: after.full, beixie: after.beixie, sliderFull, syncValue, syncBadge, errors: errors.slice(0, 5) };
+    const syncReset = await page.evaluate(() => document.body.innerText.includes("水平岩层"));
+    report.foldInteract = { before, autoFull: after.full, beixie: after.beixie, sliderFull, syncValue, syncReset, errors: errors.slice(0, 5) };
     await page.close();
   }
 

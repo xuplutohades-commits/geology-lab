@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { animate } from "framer-motion";
-import { Play, RotateCcw, Waves, ArrowDown } from "lucide-react";
+import { animate, motion } from "framer-motion";
+import { Play, Pause, RotateCcw, Waves, ArrowDown } from "lucide-react";
 import { buildFoldBands, type FoldMode } from "@/lib/geology/paths";
 import { ROCKS } from "@/lib/geology/palette";
 import { StrataScene, SCENE_W, SKY_H, LAYER_H } from "./StrataScene";
@@ -143,24 +143,69 @@ export function ErosionLab() {
 
           {/* 侵蚀作用箭头 */}
           {t > 0.05 && (
-            <g opacity={0.35 + t * 0.55} stroke="#e8c9b4" strokeWidth="2.4">
+            <g opacity={0.4 + t * 0.6} stroke="#e8c9b4" strokeWidth="3" fill="none" strokeLinecap="round">
               {anticline ? (
                 <>
-                  <g transform={`translate(${SCENE_W * 0.28} ${surface[Math.round(0.28 * 96)].y + 30})`}>
-                    <line x1="0" y1="-14" x2="0" y2="12" />
-                    <path d="M -6 4 L 0 12 L 6 4" fill="none" />
+                  <g transform={`translate(${SCENE_W * 0.5} ${surface[48].y + 36})`}>
+                    <line x1="0" y1="-22" x2="0" y2="14" />
+                    <path d="M -7 5 L 0 14 L 7 5" />
                   </g>
-                  <g transform={`translate(${SCENE_W * 0.72} ${surface[Math.round(0.72 * 96)].y + 30})`}>
-                    <line x1="0" y1="-14" x2="0" y2="12" />
-                    <path d="M -6 4 L 0 12 L 6 4" fill="none" />
+                  <g transform={`translate(${SCENE_W * 0.22} ${surface[Math.round(0.22 * 96)].y + 20})`}>
+                    <line x1="0" y1="-10" x2="0" y2="8" />
+                    <path d="M -5 1 L 0 8 L 5 1" />
+                  </g>
+                  <g transform={`translate(${SCENE_W * 0.78} ${surface[Math.round(0.78 * 96)].y + 20})`}>
+                    <line x1="0" y1="-10" x2="0" y2="8" />
+                    <path d="M -5 1 L 0 8 L 5 1" />
                   </g>
                 </>
               ) : (
-                <g transform={`translate(${SCENE_W * 0.5} ${surface[48].y - 46})`}>
-                  <line x1="0" y1="-12" x2="0" y2="10" />
-                  <path d="M -6 2 L 0 10 L 6 2" fill="none" />
+                <g transform={`translate(${SCENE_W * 0.5} ${surface[48].y - 52})`}>
+                  <line x1="0" y1="-14" x2="0" y2="12" />
+                  <path d="M -6 3 L 0 12 L 6 3" />
                 </g>
               )}
+            </g>
+          )}
+
+          {/* 核部剥落：张力裂隙 → 岩块顺坡滑落（背斜） */}
+          {t > 0.1 && anticline && (
+            <g>
+              <g stroke="#e8c9b4" strokeWidth="2.2" opacity={0.5 + 0.5 * Math.sin(t * 31)}>
+                <path d={`M ${SCENE_W * 0.5 - 26} ${surface[48].y + 10} L ${SCENE_W * 0.5 - 40} ${surface[48].y + 16}`} />
+                <path d={`M ${SCENE_W * 0.5 + 26} ${surface[48].y + 10} L ${SCENE_W * 0.5 + 40} ${surface[48].y + 16}`} />
+                <path d={`M ${SCENE_W * 0.5 - 8} ${surface[48].y + 12} L ${SCENE_W * 0.5 - 12} ${surface[48].y + 22}`} />
+                <path d={`M ${SCENE_W * 0.5 + 8} ${surface[48].y + 12} L ${SCENE_W * 0.5 + 12} ${surface[48].y + 22}`} />
+              </g>
+              {[0.44, 0.5, 0.56].map((u, i) => {
+                const sx = u * SCENE_W;
+                const sy = surface[Math.round(u * 96)].y + 6;
+                return (
+                  <motion.g key={i} initial={false}>
+                    <motion.g
+                      animate={{ y: [0, valley.y + 26 - sy], x: [(sx - SCENE_W / 2) * 0.12, (sx - SCENE_W / 2) * 1.05], opacity: [0, 1, 1, 0] }}
+                      transition={{ duration: 2.6, repeat: Infinity, delay: 0.5 + i * 0.85, ease: "easeIn" }}
+                    >
+                      <path
+                        d={`M ${sx} ${sy} L ${sx + 9} ${sy + 3} L ${sx + 5} ${sy + 10} Z`}
+                        fill="#cbb99a"
+                        stroke="#a89a7c"
+                        strokeWidth="1.2"
+                      />
+                    </motion.g>
+                  </motion.g>
+                );
+              })}
+            </g>
+          )}
+
+          {/* 核部剥蚀强度标签 */}
+          {anticline && t > 0.12 && (
+            <g>
+              <rect x={SCENE_W * 0.5 - 128} y={18} width="256" height="32" rx="16" fill="#1b1a14" opacity="0.88" />
+              <text x={SCENE_W * 0.5} y={39} textAnchor="middle" fontSize="15" fontWeight="800" fill="#e0a875">
+                核部受张力 · 剥蚀最快
+              </text>
             </g>
           )}
 
@@ -183,7 +228,7 @@ export function ErosionLab() {
                 strokeDasharray="10 9"
                 opacity="0.85"
               />
-              <text x={valley.x + 82} y={valley.y + 13} fontSize="13" fontWeight="700" fill="#9cc3d6" textAnchor="middle">
+              <text x={valley.x + 84} y={valley.y + 16} fontSize="15" fontWeight="800" fill="#a7cfe0" textAnchor="middle">
                 河流
               </text>
             </g>
@@ -195,7 +240,8 @@ export function ErosionLab() {
               <path d="M 480 16 L 488 28" />
               <path d="M 494 10 L 500 24" />
               <path d="M 508 14 L 513 27" />
-              <text x={530} y={26} fontSize="12.5" fontWeight="700" fill="#e0a875">顶部张力 · 易被侵蚀</text>
+              <rect x={412} y={6} width="172" height="30" rx="15" fill="#1b1a14" opacity="0.88" />
+              <text x={498} y={26} textAnchor="middle" fontSize="14.5" fontWeight="800" fill="#e0a875">顶部张力 · 易被侵蚀</text>
             </g>
           )}
         </StrataScene>
@@ -206,7 +252,7 @@ export function ErosionLab() {
           <p className="eyebrow mb-2">实验 02 · 长期侵蚀</p>
           <h3 className="text-[19px] font-extrabold">{anticline ? "背斜山会变成背斜谷" : "向斜谷会变成向斜山"}</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            推动时间轴，看风化与流水如何改变地表。
+            自动播放或拖动时间轴。核部被掏空成谷，两翼几乎没被削低——这是长期侵蚀的结果。
           </p>
         </div>
 
@@ -241,10 +287,22 @@ export function ErosionLab() {
           ]}
         />
 
-        <div className="flex flex-wrap gap-2.5">
-          <button className="btn btn-primary" onClick={play} disabled={playing}>
-            <Play className="size-4" /> 开始长期侵蚀
-          </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          {playing ? (
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                animRef.current?.stop();
+                setPlaying(false);
+              }}
+            >
+              <Pause className="size-4" /> 暂停
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={play}>
+              <Play className="size-4" /> 自动播放
+            </button>
+          )}
           <button className="btn btn-ghost" onClick={reset}>
             <RotateCcw className="size-4" /> 复位
           </button>
