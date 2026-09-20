@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, ChevronRight, RotateCcw, ScanSearch } from "lucide-react";
 import { Segmented, StatusChip } from "@/components/ui/Controls";
+import { buildFoldBands } from "@/lib/geology/paths";
 
 type Q = {
   q: string;
@@ -62,45 +63,149 @@ const PROFILES: Profile[] = [
 ];
 
 function ProfileFoldSVG() {
+  // 试卷式剖面：白底、墨线、岩层纹理 + 图例，不标注任何构造名称与新老关系
+  const bands = useMemo(
+    () =>
+      buildFoldBands({
+        width: 560,
+        topY: 84,
+        thickness: 30,
+        count: 6,
+        pressure: 1,
+        mode: "anticline",
+        amplitude: 56,
+        squeeze: 0.16,
+        ripple: 1.0,
+      }),
+    [],
+  );
+  const fills = ["#d9d2c2", "#ccc1a8", "#c6b99e", "#d6d0bf", "#c0b195", "#d2c3a7"];
+  const edge = "#7c7463";
+  const ink = "#3d3a32";
+  // 岩性映射：0、3＝石灰岩(点状)，1、4＝页岩(细横纹)，2、5＝砂岩(斜纹)
+  const texture = [0, 1, 2, 0, 1, 2];
+
+  // 侵蚀地形线：两翼残留高、核部被切出河谷
+  const terr: string[] = ["M 0 80"];
+  for (let i = 1; i <= 32; i++) {
+    const u = i / 32;
+    const x = u * 560;
+    const arch = Math.pow(Math.sin(Math.PI * u), 2);
+    const topEdge = 84 - 56 * arch;
+    const y = topEdge + 118 * arch + 6;
+    terr.push(`L ${x.toFixed(1)} ${y.toFixed(1)}`);
+  }
+
   return (
-    <svg viewBox="0 0 520 240" className="w-full">
-      <rect width="520" height="48" fill="#2b2820" />
-      <g stroke="#8d8778" strokeWidth="1">
-        <path d="M20 122 Q110 44 200 96 T340 88 T500 108" fill="#6f6555" />
-        <path d="M20 138 Q110 60 200 112 T340 104 T500 124" fill="#57524a" />
-        <path d="M20 154 Q110 76 200 128 T340 120 T500 140" fill="#6e6253" />
+    <svg viewBox="0 0 560 290" className="w-full">
+      <defs>
+        <pattern id="pf-dots" width="18" height="14" patternUnits="userSpaceOnUse">
+          <circle cx="5" cy="5" r="1.6" fill="#7c7463" opacity="0.5" />
+          <circle cx="13" cy="11" r="1.3" fill="#7c7463" opacity="0.45" />
+        </pattern>
+        <pattern id="pf-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="12" stroke="#7c7463" strokeWidth="1" opacity="0.32" />
+        </pattern>
+      </defs>
+      <rect width="560" height="290" fill="#faf7ee" />
+      <rect x="1" y="1" width="558" height="288" fill="none" stroke="#8a8474" strokeWidth="1.5" />
+      <text x="18" y="28" fontSize="14.5" fontWeight="800" fill={ink}>图 1　某山区地质剖面示意图</text>
+      <text x="540" y="28" fontSize="10.5" fill="#8a8474" textAnchor="end">示意</text>
+
+      {bands.map((b) => {
+        const f = fills[b.index];
+        const t = texture[b.index];
+        return (
+          <g key={b.index}>
+            <path d={b.path} fill={f} stroke={edge} strokeWidth="1.4" strokeLinejoin="round" />
+            {t === 0 && <path d={b.path} fill="url(#pf-dots)" />}
+            {t === 2 && <path d={b.path} fill="url(#pf-hatch)" />}
+            {/* 层理细纹：中心线 + 一条平行线 */}
+            <path id={`pf-cl-${b.index}`} d={b.centerline} fill="none" stroke={edge} strokeWidth="0.9" opacity="0.7" />
+            <use href={`#pf-cl-${b.index}`} transform={`translate(0 ${b.index % 2 === 0 ? 8 : -9})`} stroke={edge} strokeWidth="0.8" opacity="0.5" />
+            {t === 1 && <use href={`#pf-cl-${b.index}`} transform={`translate(0 ${b.index % 2 === 0 ? -8 : 9})`} stroke={edge} strokeWidth="0.8" opacity="0.5" strokeDasharray="2.5 2.5" />}
+          </g>
+        );
+      })}
+
+      {/* 地形与河流（墨色地形线 + 细蓝河段，均在图内注明） */}
+      <path d={terr.join(" ")} fill="none" stroke={ink} strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M 236 168 Q 280 165 324 168" fill="none" stroke="#4a7fa5" strokeWidth="1.6" />
+      <text x="344" y="172" fontSize="10" fontWeight="700" fill={ink}>河流</text>
+
+      {/* 图例 */}
+      <g>
+        <rect x="392" y="204" width="150" height="72" rx="4" fill="#ffffff" stroke="#8a8474" strokeWidth="1" />
+        <text x="402" y="220" fontSize="10.5" fontWeight="800" fill={ink}>图例</text>
+        <rect x="402" y="228" width="14" height="9" fill="#d9d2c2" stroke={edge} strokeWidth="0.8" />
+        <path d="M404 231 h2 M408 231 h2 M412 231 h2 M416 231 h2" stroke={edge} strokeWidth="0.7" opacity="0.6" />
+        <text x="424" y="236.5" fontSize="10" fill={ink}>石灰岩</text>
+        <rect x="402" y="245" width="14" height="9" fill="#ccc1a8" stroke={edge} strokeWidth="0.8" />
+        <line x1="403" y1="248" x2="414" y2="248" stroke={edge} strokeWidth="0.7" opacity="0.6" />
+        <text x="424" y="253.5" fontSize="10" fill={ink}>页岩</text>
+        <rect x="402" y="262" width="14" height="9" fill="#c6b99e" stroke={edge} strokeWidth="0.8" />
+        <line x1="404" y1="265" x2="412" y2="266" stroke={edge} strokeWidth="0.7" opacity="0.6" transform="rotate(45 408 265)" />
+        <text x="424" y="270.5" fontSize="10" fill={ink}>砂岩</text>
       </g>
-      <path d="M80 96 Q200 160 320 112" fill="none" stroke="#99a06e" strokeWidth="3" />
-      <path d="M196 152 L212 152" stroke="#5d8cad" strokeWidth="4" strokeLinecap="round" />
     </svg>
   );
 }
 
 function ProfileHorstSVG() {
+  // 试卷式断块剖面：两盘层理错位、断层面为粗墨线，不标注构造名称
+  const ink = "#3d3a32";
+  const edge = "#7c7463";
+  const fillL = "#efe9da";
+  const fillC = "#e6dfc9";
+  const fillR = "#efe9da";
+  // 断层面：左 (205,88)→(178,288)，右 (355,88)→(382,288)
   return (
-    <svg viewBox="0 0 520 240" className="w-full">
-      <rect width="520" height="46" fill="#2b2820" />
-      <path d="M0 60 L165 60 L165 16 L355 16 L355 60 L520 60" fill="none" stroke="#99a06e" strokeWidth="2.6" strokeLinejoin="round" />
-      <g>
-        <rect x="0" y="62" width="165" height="160" fill="#57524a" stroke="#3a352b" />
-        <rect x="165" y="18" width="190" height="204" fill="#6f6555" stroke="#3a352b" />
-        <rect x="355" y="62" width="165" height="160" fill="#57524a" stroke="#3a352b" />
-      </g>
-      <g stroke="#3a352b" strokeWidth="1">
-        {[0, 1, 2, 3].map((i) => (
-          <g key={i}>
-            <line x1="0" y1={92 + i * 34} x2="165" y2={92 + i * 34} />
-            <line x1="165" y1={48 + i * 34} x2="355" y2={48 + i * 34} />
-            <line x1="355" y1={92 + i * 34} x2="520" y2={92 + i * 34} />
-          </g>
+    <svg viewBox="0 0 560 290" className="w-full">
+      <rect width="560" height="290" fill="#faf7ee" />
+      <rect x="1" y="1" width="558" height="288" fill="none" stroke="#8a8474" strokeWidth="1.5" />
+      <text x="18" y="28" fontSize="14.5" fontWeight="800" fill={ink}>图 2　某地地质剖面示意图</text>
+      <text x="540" y="28" fontSize="10.5" fill="#8a8474" textAnchor="end">示意</text>
+
+      {/* 左地块（下盘） */}
+      <polygon points="16,150 196,150 178,288 16,288" fill={fillL} stroke={edge} strokeWidth="1.2" />
+      {/* 中心地块（相对上升） */}
+      <polygon points="205,88 355,88 382,288 178,288" fill={fillC} stroke={edge} strokeWidth="1.2" />
+      {/* 右地块 */}
+      <polygon points="364,150 544,150 544,288 382,288" fill={fillR} stroke={edge} strokeWidth="1.2" />
+
+      {/* 层理线：在断层面处错位、中断 */}
+      {[186, 222, 256].map((y, i) => (
+        <line key={i} x1="20" y1={y} x2={196 - (196 - 178) * ((y - 150) / 138)} y2={y} stroke={edge} strokeWidth="1" opacity="0.75" />
+      ))}
+      <g stroke={edge} strokeWidth="1" opacity="0.75">
+        {[118, 148, 180, 212, 246].map((y) => (
+          <line key={y} x1={205 + ((178 - 205) * (y - 88)) / 200} y1={y} x2={355 + ((382 - 355) * (y - 88)) / 200} y2={y} />
         ))}
       </g>
-      <line x1="165" y1="16" x2="150" y2="236" stroke="#d9804f" strokeWidth="2.2" />
-      <line x1="355" y1="16" x2="370" y2="236" stroke="#d9804f" strokeWidth="2.2" />
-      <text x="82" y="142" fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">A</text>
-      <text x="260" y={120} fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">B</text>
-      <text x="437" y="142" fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">C</text>
-      
+      <g stroke={edge} strokeWidth="1" opacity="0.75">
+        {[186, 222, 256].map((y) => (
+          <line key={y} x1={364 + ((382 - 364) * (y - 150)) / 138} y1={y} x2={540} y2={y} />
+        ))}
+      </g>
+
+      {/* 断层面：粗墨线 */}
+      <line x1="205" y1="88" x2="178" y2="288" stroke={ink} strokeWidth="2.6" />
+      <line x1="355" y1="88" x2="382" y2="288" stroke={ink} strokeWidth="2.6" />
+
+      {/* 地块编号 */}
+      {[
+        { x: 86, y: 138, c: "A" },
+        { x: 280, y: 72, c: "B" },
+        { x: 474, y: 138, c: "C" },
+      ].map(({ x, y, c }) => (
+        <g key={c}>
+          <circle cx={x} cy={y - 4} r="9" fill="#ffffff" stroke={ink} strokeWidth="1" />
+          <text x={x} y={y - 0.5} textAnchor="middle" fontSize="11" fontWeight="800" fill={ink}>{c}</text>
+        </g>
+      ))}
+
+      {/* 注记 */}
+      <text x="18" y="272" fontSize="10" fill="#8a8474">注：图中粗线为断面线；层理线在断面两侧错位。</text>
     </svg>
   );
 }

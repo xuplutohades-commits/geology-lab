@@ -63,7 +63,7 @@ function MiniErosion({ kind, active }: { kind: "anticline-valley" | "syncline-mo
         );
       })}
       {t > 0.02 && <path d={cover} fill="#1f1d17" />}
-      <path d={`M ${surface.map((p) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" L ")}`} fill="none" stroke="#99a06e" strokeWidth="2.2" strokeLinejoin="round"
+      <path d={`M ${surface.map((p) => `${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" L ")}`} fill="none" stroke="#6f6a58" strokeWidth="2.2" strokeLinejoin="round"
         style={{ display: t > 0.02 ? "block" : "none" }} />
       {mode === "anticline" && t > 0.5 ? (
         <g>
