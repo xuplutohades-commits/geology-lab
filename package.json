@@ -7,7 +7,9 @@
     "build": "next build --webpack",
     "lint": "eslint",
     "qa": "node scripts/qa-interactions.mjs",
-    "preview": "python3 -m http.server 4173 --directory out"
+    "preview": "python3 -m http.server 4173 --directory out",
+    "build:gh": "BASE_PATH=gh next build --webpack",
+    "deploy:pages": "npm run build:gh && gh api -X POST user/repos --silent 2>/dev/null || true"
   },
   "dependencies": {
     "framer-motion": "^13.4.0",

@@ -4,6 +4,12 @@
 
 操作岩层、挤压褶皱、拉张断层、推动 2000 万年的时间轴、寻找油气、挑选坝址、完成剖面判读——把教材知识变成一间可以动手的实验室。
 
+## 在线分享地址
+
+**https://xuplutohades-commits.github.io/geology-lab/**
+
+手机、平板、教室电脑任意浏览器直接打开即可，无需安装任何东西；也支持打包下载离线分享包（`地质构造实验室-分享包.zip`，含一键启动脚本）。
+
 ## 快速开始
 
 ```bash
@@ -59,6 +65,13 @@ npm run build && npm run qa   # 静态导出 + 无头浏览器全量交互回归
 `npm run qa` 会启动静态服务器并用 Playwright（复用本机 Chrome）逐页检查控制台错误，并自动验证：挤压动画、滑块、任务切换与结果、剖面答题与判据勾选、地垒地堑切换、演化播放/复位。
 
 > 注：若 `npm run qa` 找不到 Chrome，请修改 `scripts/qa-interactions.mjs` 顶部的 `EXE` 路径；首次运行需 `npm i -D playwright-core`（已随项目安装）。
+
+## 发布到 GitHub Pages（可选，按需更新线上版本）
+
+```bash
+npm run build:gh   # 构建子路径版本（out/ 带 /geology-lab 前缀）
+# 将 out/ 内容推送到 gh-pages 分支即可生效，几分钟内自动部署
+```
 
 ## 后续迭代方向（Roadmap）
 
