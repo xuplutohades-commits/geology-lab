@@ -15,7 +15,7 @@ export default function FoldPage() {
         <h1 className="t-h1">褶皱：把岩层压弯的那一双手</h1>
         <p className="t-lead mt-4">
           褶皱是岩层受水平挤压发生弯曲变形形成的地质构造。
-          在这里你拥有两件工具：<b>挤压力</b>与<b>时间</b>。前者制造褶皱，后者把褶皱蚀成山、削成谷。
+          实验用两样东西：<b>挤压力</b>和<b>时间</b>。
         </p>
       </header>
 
@@ -55,13 +55,12 @@ export default function FoldPage() {
           <div className="rounded-2xl border border-line bg-card p-6">
             <p className="t-mono text-[11px] tracking-wider text-ink-faint">判读口诀</p>
             <p className="mt-2 text-[19px] font-extrabold leading-snug">
-              「老背新向」——<span className="text-clay">老</span>岩层在
+              「老背新向」：<span className="text-clay">老</span>岩层在
               <span className="text-clay">背</span>斜核部，<span className="text-water">新</span>
               岩层在<span className="text-water">向</span>斜核部。
             </p>
             <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink-soft">
-              记住：<b>地表形态不能作为唯一判据</b>（背斜可能已被蚀成谷）；
-              最可靠的判据是<b>岩层新老关系</b>。
+              <b>地表形态不能作唯一判据</b>（背斜可能已蚀成谷），可靠判据是<b>岩层新老关系</b>。
             </p>
           </div>
           <div className="rounded-2xl border border-line bg-paper-2/60 p-6">
@@ -78,7 +77,7 @@ export default function FoldPage() {
             </p>
             <p className="mt-2 text-[13.5px] leading-relaxed text-chalk-dim">
               喜马拉雅、阿尔卑斯等褶皱山系，就是印度板块与亚欧板块、非洲板块与欧亚板块
-              持续挤压的“现场证据”——岩层至今仍在增高、仍在变形。
+              持续挤压形成，岩层至今仍在变形。
             </p>
           </div>
         </div>
@@ -90,15 +89,14 @@ export default function FoldPage() {
           <p className="eyebrow mb-2">实验 02 · 长期侵蚀</p>
           <h2 className="t-h2">背斜山 → 背斜谷：地形反转</h2>
           <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-ink-soft">
-            构造定型之后，外力作用登场。推动时间轴，风化与流水会重新雕刻地表——
-            特别留意芯部岩层被剥蚀后，背斜会变成什么。
+            推动时间轴，看风化与流水剥蚀地表后，背斜会变成什么。
           </p>
         </div>
         <ErosionLab />
       </section>
 
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-card p-6">
-        <p className="text-[15px] font-bold">已经看懂褶皱？下一站，让岩层断裂。</p>
+        <p className="text-[15px] font-bold">下一步：断层实验室。</p>
         <Link href="/fault" className="btn btn-primary">
           进入断层实验室 <ArrowRight className="size-4" />
         </Link>

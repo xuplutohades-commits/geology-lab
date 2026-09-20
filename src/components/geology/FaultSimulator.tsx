@@ -191,7 +191,7 @@ export function FaultSimulator() {
           <p className="eyebrow mb-2">实验 03 · 岩层断裂</p>
           <h3 className="text-[19px] font-extrabold">选择一种应力方式</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            岩层承受的应力超过强度时发生断裂，两侧岩块沿断层面产生位移，形成断层。
+            应力超过岩层强度时发生断裂，岩块沿断层面错动。
           </p>
         </div>
 
@@ -212,10 +212,10 @@ export function FaultSimulator() {
           </p>
           <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
             {strike
-              ? "观察两侧岩层在地表附近的水平错位——走向大致平行于观察面的断层，只能看到“左右错开”。"
+              ? "走向大致平行于观察面的断层，只能看到左右错开。"
               : type === "normal"
-                ? "上盘沿倾向向下滑动：老岩层相对抬出，地表可能出现断层崖。"
-                : "上盘沿倾向向上推挤：老岩层被推覆到新岩层之上。"}
+                ? "上盘沿断层面下滑，老岩层相对抬出。"
+                : "上盘沿断层面向上推挤，老岩层盖到新岩层上。"}
           </p>
         </div>
 
@@ -227,7 +227,7 @@ export function FaultSimulator() {
 
         <p className="flex items-start gap-1.5 text-[12.5px] leading-relaxed text-ink-faint">
           <MoveHorizontal className="mt-0.5 size-3.5 shrink-0" />
-          断层的基本要素：断层面、上盘、下盘。位移方向相反，断层类型就不同。
+          断层要素：断层面、上盘、下盘。位移方向决定断层类型。
         </p>
       </div>
     </div>

@@ -206,9 +206,7 @@ export function ErosionLab() {
           <p className="eyebrow mb-2">实验 02 · 长期侵蚀</p>
           <h3 className="text-[19px] font-extrabold">{anticline ? "背斜山会变成背斜谷" : "向斜谷会变成向斜山"}</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            推动时间轴：风化与流水侵蚀持续进行。注意
-            {anticline ? "背斜顶部因张力破碎" : "向斜核部因挤压坚硬"}，
-            长期作用后地表形态会发生反转。
+            推动时间轴，看风化与流水如何改变地表。
           </p>
         </div>
 
@@ -258,26 +256,23 @@ export function ErosionLab() {
           <p className="mt-1 text-[15px] font-bold leading-relaxed">
             {anticline ? (
               <>
-                背斜顶部受<span className="text-clay">张力</span>，岩层破碎、易被侵蚀。
-                长期剥蚀后，核部被削低，形成{" "}
-                <span className="text-clay">背斜谷</span>——背斜山并不永恒。
+                背斜顶部受<span className="text-clay">张力</span>、岩层破碎，被剥蚀成谷地。
               </>
             ) : (
               <>
-                向斜核部受<span className="text-moss">挤压</span>，岩层更坚硬、不易侵蚀，
-                反而保留为相对高耸的 <span className="text-moss">向斜山</span>。
+                向斜核部受<span className="text-moss">挤压</span>、岩层坚硬，残留为相对高耸的 <span className="text-moss">向斜山</span>。
               </>
             )}
           </p>
           <p className="mt-2 flex items-start gap-1.5 text-[12.5px] leading-relaxed text-ink-faint">
             <Waves className="mt-0.5 size-3.5 shrink-0" />
-            结论：地质构造与地表形态「不总是一一对应」——地貌是内力构造与外力侵蚀长期叠合的结果。
+            地貌是内力构造与外力侵蚀长期叠合的结果。
           </p>
         </div>
 
         <p className="flex items-start gap-1.5 text-[12.5px] leading-relaxed text-ink-faint">
           <ArrowDown className="mt-0.5 size-3.5 shrink-0 text-water" />
-          地表形态由相对海拔差决定：只要核部比两翼低/高，就称背斜谷 / 向斜山。
+          核部比两翼低或高，就分别称背斜谷、向斜山。
         </p>
       </div>
     </div>

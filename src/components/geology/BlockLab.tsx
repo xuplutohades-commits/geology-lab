@@ -16,8 +16,8 @@ const LIFT = 54;
 
 const META: Record<State, { name: string; landform: string; example: string; tone: "clay" | "water" | "ink" }> = {
   flat: { name: "水平岩块", landform: "", example: "先让中间的 B 地块动起来：它和两侧 A、C 之间会发生断层。", tone: "ink" },
-  horst: { name: "地垒", landform: "断块山", example: "中间地块相对上升 → 两侧断层崖夹峙的块状山地。如华山、泰山、庐山。", tone: "clay" },
-  graben: { name: "地堑", landform: "断陷盆地", example: "中间地块相对下沉 → 盆地或河谷。如渭河平原、汾河谷地、东非大裂谷。", tone: "water" },
+  horst: { name: "地垒", landform: "断块山", example: "中间地块相对上升，两侧断崖夹峙成块状山地，如华山、庐山。", tone: "clay" },
+  graben: { name: "地堑", landform: "断陷盆地", example: "中间地块相对下沉成盆地或河谷，如渭河平原、汾河谷地。", tone: "water" },
 };
 
 export function BlockLab() {
@@ -144,7 +144,7 @@ export function BlockLab() {
           <p className="eyebrow mb-2">实验 04 · 地垒与地堑</p>
           <h3 className="text-[19px] font-extrabold">移动地块，观察地貌</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            把地壳分成 A、B、C 三个可移动地块。两条正断层之间，中间地块的升降决定构造名称与地貌。
+            A、B、C 三个地块，中间地块的升降决定构造名称与地貌。
           </p>
         </div>
 
@@ -177,7 +177,7 @@ export function BlockLab() {
           </li>
           <li className="flex gap-2.5">
             <span className="mt-1 grid size-6 shrink-0 place-items-center rounded-md bg-paper-2 text-[12px] font-bold text-moss">K</span>
-            关键在“相对”二字：判断升降只看中间与两侧的相对位置。
+            升降只看中间与两侧的相对位置。
           </li>
         </ul>
       </div>

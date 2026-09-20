@@ -7,10 +7,10 @@ import { ROCKS } from "@/lib/geology/palette";
 export const metadata: Metadata = { title: "01 地质构造基础" };
 
 const CHAIN = [
-  { icon: <Layers className="size-5" />, t: "水平岩层", d: "沉积岩在水平状态下逐层堆积，新在上、老在下。", c: "text-sand" },
-  { icon: <Activity className="size-5" />, t: "内力受力", d: "地壳运动产生的挤压力、拉张力持续作用。", c: "text-clay" },
+  { icon: <Layers className="size-5" />, t: "水平岩层", d: "层状岩石新在上、老在下。", c: "text-sand" },
+  { icon: <Activity className="size-5" />, t: "内力受力", d: "地壳运动产生挤压力与拉张力。", c: "text-clay" },
   { icon: <MoveDownRight className="size-5" />, t: "岩层变形", d: "超过弹性极限后，岩层弯曲或断裂。", c: "text-water" },
-  { icon: <GitFork className="size-5" />, t: "地质构造", d: "褶皱、断层——岩层变形的“定格照片”。", c: "text-moss" },
+  { icon: <GitFork className="size-5" />, t: "地质构造", d: "褶皱、断层，即岩层变形的结果。", c: "text-moss" },
 ];
 
 export default function BasicsPage() {
@@ -21,8 +21,7 @@ export default function BasicsPage() {
         <p className="eyebrow mb-4">01 · 地质构造基础</p>
         <h1 className="t-h1">岩层 → 受力 → 变形 → 地质构造</h1>
         <p className="t-lead mt-4">
-          这一页只用一条逻辑链：水平岩层在什么条件下变成褶皱？拖动滑块，把“书页一样的岩层”，
-          亲手压成一座褶皱。
+          拖动滑块，看水平岩层在什么条件下弯曲成褶皱。
         </p>
       </header>
 
@@ -61,12 +60,8 @@ export default function BasicsPage() {
           <p className="eyebrow mb-2">岩层与地层</p>
           <h2 className="t-h2">一套 8 层的标准地层剖面</h2>
           <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">
-            地层是地壳发展历史上形成的成层岩石。每个标准地层单元都有：层理（成层性）、
-            走向与倾向、以及新老顺序——通常<span className="font-bold text-ink">越往下越老</span>。
-          </p>
-          <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">
-            剖面图中每一层的颜色、颗粒与厚度都代表不同的沉积环境：砂岩来自河流与海滩，
-            页岩来自静水湖泊与浅海，石灰岩来自温暖浅海生物堆积……
+            地层按新老叠置，越往下越老。颜色与颗粒反映沉积环境：砂岩来自河流与海滩，
+            页岩来自静水湖泊，石灰岩来自温暖浅海。
           </p>
           <Link href="/fold" className="btn btn-dark mt-6">
             继续：做褶皱实验 <ArrowRight className="size-4" />
@@ -102,11 +97,8 @@ export default function BasicsPage() {
       <div className="rounded-2xl border border-line bg-night p-7 text-chalk">
         <p className="eyebrow mb-3">小结</p>
         <p className="text-[16px] leading-relaxed text-chalk">
-          地质构造，是<span className="font-bold text-clay">地壳运动</span>引起的岩层
-          <span className="font-bold text-clay">变形与变位</span>：连续的弯曲是
-          <span className="font-bold text-clay">褶皱</span>，断裂错动是
-          <span className="font-bold text-clay">断层</span>。
-          它们记录着内力作用的历史，也控制着地貌、水源、矿产与工程的可能。
+          地壳运动使岩层变形变位：连续弯曲成褶皱，断裂错动成断层。
+          构造决定地貌，也影响找水、找矿与工程建设。
         </p>
       </div>
     </div>

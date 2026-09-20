@@ -360,10 +360,10 @@ function p300(x: number) {
 
 /* ---------------- 外壳 ---------------- */
 const TASKS: { id: Task; label: string; icon: React.ReactNode; title: string; task: string }[] = [
-  { id: "water", label: "找水", icon: <Droplets className="size-4" />, title: "任务：打一口井", task: "点击剖面中的 A–D 位置钻井取水，看看哪一处地下水最丰富？" },
-  { id: "oil", label: "找石油天然气", icon: <Fuel className="size-4" />, title: "任务：勘探油气", task: "点击剖面中的 A–D 位置布设钻井，判断哪里才能发现油气藏？" },
-  { id: "tunnel", label: "修建隧道", icon: <TrainFront className="size-4" />, title: "任务：给铁路选隧道线", task: "点击剖面中的 A–D 位置布设隧道，评估岩层稳定性、地下水与施工风险。" },
-  { id: "dam", label: "工程选址", icon: <Landmark className="size-4" />, title: "任务：为水库选坝址", task: "点击剖面中的甲–丙位置布置坝轴线：要避开断层、岩溶，选择稳固不透水的地基。" },
+  { id: "water", label: "找水", icon: <Droplets className="size-4" />, title: "任务：打一口井", task: "点 A–D 钻井取水，哪处地下水最丰富？" },
+  { id: "oil", label: "找石油天然气", icon: <Fuel className="size-4" />, title: "任务：勘探油气", task: "点 A–D 布设钻井，哪里能发现油气藏？" },
+  { id: "tunnel", label: "修建隧道", icon: <TrainFront className="size-4" />, title: "任务：给铁路选隧道线", task: "点 A–D 布设隧道，评估稳定性、地下水与风险。" },
+  { id: "dam", label: "工程选址", icon: <Landmark className="size-4" />, title: "任务：为水库选坝址", task: "点甲–丙布置坝轴线，避开断层与岩溶。" },
 ];
 
 export function TaskSimulator() {
@@ -471,17 +471,15 @@ export function TaskSimulator() {
                 )}
               </>
             ) : (
-              <p className="text-[13.5px] font-semibold text-ink-faint">
-                点击上方点位或剖面中的圆点，查看该位置的工程评价。
-              </p>
+              <p className="text-[13.5px] font-semibold text-ink-faint">点圆点看评价。</p>
             )}
           </motion.div>
         </AnimatePresence>
 
-        {task === "water" && <Explain text="地下水向低处流动。向斜（向下弯曲的褶皱）像一只碗，把降水与两侧补给水汇在核部——所以向斜是储水构造。背斜顶部分流，是贫水区。" />}
-        {task === "oil" && <Explain text="油气比水轻，会沿渗透性岩层向上运移，直到遇到不透水盖层而聚集。背斜顶部是天然的“圈闭”，天然气、石油、水按密度从上到下分层。" />}
-        {task === "tunnel" && <Explain text="背斜拱形稳定、不易积水，是隧道的优选部位；向斜核部是地下水汇集中心，断层带岩体破碎——工程选址的基本原则就是避开断层、避开富水区。" />}
-        {task === "dam" && <Explain text="坝址三原则：地基完整稳固（岩性）、避开活动断层（稳定）、谷口狭窄（工程量小）。石灰岩岩溶发育会引起渗漏，花岗岩则是理想的坝基。" />}
+        {task === "water" && <Explain text="地下向斜向下弯曲，把降水与两侧补给水汇在核部，是储水构造；背斜顶部分流，是贫水区。" />}
+        {task === "oil" && <Explain text="油气比水轻，沿渗透层上移，遇不透水盖层后聚集。背斜顶部因此成为圈闭，气、油、水按密度分层。" />}
+        {task === "tunnel" && <Explain text="背斜拱形稳定、不易积水，是隧道优选部位；向斜核部汇水、断层带破碎，都应避开。" />}
+        {task === "dam" && <Explain text="坝址三原则：地基完整、避开断层、谷口狭窄。石灰岩岩溶易渗漏，花岗岩是理想坝基。" />}
       </div>
     </div>
   );
@@ -499,49 +497,49 @@ function getResult(task: Task, selected: string | null): Probe | null {
   if (!selected) return null;
   const pools: Record<Task, Probe[]> = {
     water: [
-      { id: "A", x: 0, y: 0, label: "", ok: true, title: "地下水富集区", detail: "向斜核部岩层向下弯曲，像一只碗汇聚降水与两侧地下水，含水层厚、水量大——最理想的钻井位置。" },
-      { id: "B", x: 0, y: 0, label: "", ok: false, title: "水量小，易落空", detail: "背斜核部地下水向两翼分流，顶部缺乏厚含水层，打井取水效果差。" },
-      { id: "C", x: 0, y: 0, label: "", ok: "mid", title: "水量一般", detail: "翼部含水层较薄，水位较深，可用作备用井位，但水量有限。" },
-      { id: "D", x: 0, y: 0, label: "", ok: false, title: "补给有限", detail: "远离汇水中心，降水补给不足，旱季容易断水。" },
+      { id: "A", x: 0, y: 0, label: "", ok: true, title: "地下水富集区", detail: "向斜核部下凹，汇聚降水与两侧地下水，含水层厚、水量大。" },
+      { id: "B", x: 0, y: 0, label: "", ok: false, title: "水量小，易落空", detail: "背斜核部地下水向两翼分流，顶部缺厚含水层。" },
+      { id: "C", x: 0, y: 0, label: "", ok: "mid", title: "水量一般", detail: "翼部含水层薄、水位深，水量有限。" },
+      { id: "D", x: 0, y: 0, label: "", ok: false, title: "补给有限", detail: "远离汇水中心，补给不足，旱季易断水。" },
     ],
     oil: [
-      { id: "A", x: 0, y: 0, label: "", ok: true, title: "发现油气藏", detail: "背斜圈闭顶部的标准层序：天然气在上、石油居中、地下水在下。A 井直接打穿盖层，油气喷涌。" },
-      { id: "B", x: 0, y: 0, label: "", ok: false, title: "未发现有效油气聚集", detail: "向斜核部以水为主。油气密度小，会沿地层向高处运移，不会沉在向斜底部。" },
-      { id: "C", x: 0, y: 0, label: "", ok: "mid", title: "见少量油迹", detail: "翼部倾角大，油气沿储层继续向上运移，只残留少量油迹，难以形成可采油气藏。" },
-      { id: "D", x: 0, y: 0, label: "", ok: false, title: "钻入水层", detail: "该位置位于油水界面以下，见水不见油——不能出油。" },
+      { id: "A", x: 0, y: 0, label: "", ok: true, title: "发现油气藏", detail: "背斜圈闭的标准层序：天然气在上、石油居中、地下水在下。A 井打穿盖层即可采出。" },
+      { id: "B", x: 0, y: 0, label: "", ok: false, title: "未发现有效油气聚集", detail: "向斜核部以水为主。油气密度小，向高处运移，不会沉在底部。" },
+      { id: "C", x: 0, y: 0, label: "", ok: "mid", title: "见少量油迹", detail: "翼部倾角大，油气继续上移，只残留油迹，难成藏。" },
+      { id: "D", x: 0, y: 0, label: "", ok: false, title: "钻入水层", detail: "位于油水界面以下，见水不见油。" },
     ],
     tunnel: [
-      { id: "A", x: 0, y: 0, label: "", ok: true, title: "较理想的隧道位置", detail: "背斜轴部呈拱形，围岩自稳性好；地下水沿翼部排走，不易积水。注意顶部张裂隙的渗漏即可。", rows: [
+      { id: "A", x: 0, y: 0, label: "", ok: true, title: "较理想的隧道位置", detail: "背斜轴部呈拱形，围岩自稳好；地下水沿翼部排走，不易积水。", rows: [
         { k: "岩层稳定性", v: "拱形，自稳好", good: 2 },
         { k: "地下水", v: "向两翼分流", good: 2 },
         { k: "施工风险", v: "较低", good: 2 },
       ] },
-      { id: "B", x: 0, y: 0, label: "", ok: false, title: "水害风险大，应避开", detail: "向斜核部是地下水汇集中心，隧道易涌水突泥，且核部岩层受压存在破碎面。", rows: [
+      { id: "B", x: 0, y: 0, label: "", ok: false, title: "水害风险大，应避开", detail: "向斜核部是汇水中心，易涌水突泥，核部岩层受压破碎。", rows: [
         { k: "岩层稳定性", v: "核部破碎", good: 0 },
         { k: "地下水", v: "易涌水", good: 0 },
         { k: "施工风险", v: "极高", good: 0 },
       ] },
-      { id: "C", x: 0, y: 0, label: "", ok: false, title: "严禁穿越断层带", detail: "断层带岩体破碎、易错动，且往往富水，隧道穿越将面临塌方与涌水双重风险。", rows: [
+      { id: "C", x: 0, y: 0, label: "", ok: false, title: "严禁穿越断层带", detail: "断层带岩体破碎、富水，隧道穿越易塌方涌水。", rows: [
         { k: "岩层稳定性", v: "破碎失稳", good: 0 },
         { k: "地下水", v: "断层富水", good: 0 },
         { k: "施工风险", v: "极高", good: 0 },
       ] },
-      { id: "D", x: 0, y: 0, label: "", ok: "mid", title: "浅埋软岩，尚可施工", detail: "该处埋深浅、围岩偏软，需防范地表沉降与偏压；避开断层带后可以施工。", rows: [
+      { id: "D", x: 0, y: 0, label: "", ok: "mid", title: "浅埋软岩，尚可施工", detail: "埋深浅、围岩偏软，需防地表沉降；避开断层带后可施工。", rows: [
         { k: "岩层稳定性", v: "围岩较软", good: 1 },
         { k: "地下水", v: "水位以上", good: 1 },
         { k: "施工风险", v: "中等", good: 1 },
       ] },
     ],
     dam: [
-      { id: "甲", x: 0, y: 0, label: "", ok: false, title: "坝基不稳，渗漏严重", detail: "坝轴线横跨断层带：坝基岩体破碎，蓄水后易渗漏，且可能发生差异沉降与错动。", rows: [
+      { id: "甲", x: 0, y: 0, label: "", ok: false, title: "坝基不稳，渗漏严重", detail: "坝基岩体破碎，蓄水后易渗漏，还可能错动。", rows: [
         { k: "地基稳定性", v: "差", good: 0 },
         { k: "渗漏风险", v: "高", good: 0 },
       ] },
-      { id: "乙", x: 0, y: 0, label: "", ok: "mid", title: "岩溶渗漏风险", detail: "石灰岩岩溶发育，库水可能沿溶洞、裂隙渗漏，必须做大规模防渗处理，成本高。", rows: [
+      { id: "乙", x: 0, y: 0, label: "", ok: "mid", title: "岩溶渗漏风险", detail: "石灰岩岩溶发育，库水可能沿溶洞渗漏，防渗成本高。", rows: [
         { k: "地基稳定性", v: "岩溶发育", good: 1 },
         { k: "渗漏风险", v: "较高", good: 1 },
       ] },
-      { id: "丙", x: 0, y: 0, label: "", ok: true, title: "理想坝址", detail: "丙处谷口狭窄、工程量小，坝基为坚硬完整、不透水的花岗岩——稳固且防渗，是教科书式的优选址。", rows: [
+      { id: "丙", x: 0, y: 0, label: "", ok: true, title: "理想坝址", detail: "谷口狭窄、工程量小，坝基为坚硬完整、不透水的花岗岩。", rows: [
         { k: "地基稳定性", v: "坚硬完整", good: 2 },
         { k: "渗漏风险", v: "低", good: 2 },
       ] },

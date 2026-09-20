@@ -10,6 +10,8 @@ const eslintConfig = defineConfig([
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
+    "share-package/**",
+    "地质构造实验室-分享包.zip",
     "build/**",
     "next-env.d.ts",
   ]),

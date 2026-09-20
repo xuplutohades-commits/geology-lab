@@ -77,7 +77,7 @@ const BASE = `http://127.0.0.1:${PORT}`;
     const tunnel = await page.evaluate(() => document.body.innerText.includes("较理想的隧道位置"));
     await page.getByRole("tab", { name: "工程选址" }).click();
     await page.waitForTimeout(800);
-    const damHint = await page.evaluate(() => document.body.innerText.includes("点击剖面中的甲"));
+    const damHint = await page.evaluate(() => document.body.innerText.includes("布置坝轴线"));
     report.appInteract = { waterOK, oilOK, oilBad, tunnel, damHint, errors: errors.slice(0, 5) };
     await page.close();
   }

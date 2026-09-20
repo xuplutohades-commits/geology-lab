@@ -28,15 +28,15 @@ const PROFILES: Profile[] = [
   {
     id: "anticline-valley",
     name: "剖面一 · 背斜谷",
-    intro: "这是一幅某山区的地质剖面图（已按比例绘制）。先判断构造类型，再说明判读依据，最后回答新老关系、地貌成因与工程意义。",
-    evidencePrompt: "你判断“背斜”的依据是什么？（可多选）",
+    intro: "判断构造类型，说明判读依据，再回答新老关系、地貌成因与工程意义。",
+    evidencePrompt: "判断背斜的依据是什么？（可多选）",
     evidenceOptions: ["中间岩层较老", "中间岩层较新", "岩层向上弯曲", "岩层向下弯曲", "岩层明显错位", "地表形成山岭", "地表形成谷地"],
     evidenceCorrect: [0, 2, 6],
-    evidenceExplain: "核部岩层较老 + 岩层向上弯曲，是最可靠的背斜判据；地表形态只能辅助参考——“背斜成谷”正是这题的陷阱。",
+    evidenceExplain: "核老 + 岩层上弯是最可靠的背斜判据；地表形态只能参考，背斜成谷正是陷阱。",
     questions: [
       { q: "1. 该地质构造属于？", options: ["背斜", "向斜", "地垒", "地堑"], correct: 0, explain: "岩层向上拱起、核老翼新，是典型背斜。" },
       { q: "2. 岩层新老关系正确的是？", options: ["核部老、两翼新", "核部新、两翼老", "上下层序无法判断", "两翼新、核部更新"], correct: 0, explain: "背斜核部是褶皱弯曲最早（最老）的岩层，两翼依次变新。" },
-      { q: "3. 当前地表形态属于？", options: ["山岭（背斜山）", "谷地（背斜谷）", "盆地（向斜盆地）", "断块山"], correct: 1, explain: "背斜顶部受张力破碎，遭长期侵蚀后反成谷地——背斜谷。" },
+      { q: "3. 当前地表形态属于？", options: ["山岭（背斜山）", "谷地（背斜谷）", "盆地（向斜盆地）", "断块山"], correct: 1, explain: "背斜顶部受张力破碎，遭长期侵蚀后成谷地（背斜谷）。" },
       { q: "4. 该地貌的形成过程是？", options: ["沉积→挤压成褶→顶部侵蚀成谷", "沉积→拉张→断裂下陷", "沉积→挤压→核部熔蚀", "火山喷发→冷凝→侵蚀"], correct: 0, explain: "先内力成褶，后外力侵蚀：沉积→挤压弯曲→顶部风化侵蚀→谷地。" },
       { q: "5. 此构造的实际意义是？", options: ["利于储油储气", "利于地下水汇集", "坝址优选", "两者都错"], correct: 0, explain: "背斜是储油构造（气上油中水下）；向斜才是储水构造。" },
     ],
@@ -45,17 +45,17 @@ const PROFILES: Profile[] = [
   {
     id: "horst",
     name: "剖面二 · 断块山地",
-    intro: "河西某地剖面：中间地块与两侧地块之间存在两条断裂面。判断构造组合、地貌类型，并说明工程意义。",
-    evidencePrompt: "你判断“地垒”的依据是什么？（可多选）",
+    intro: "中间地块与两侧地块之间存在两条断裂面，判断构造与地貌。",
+    evidencePrompt: "判断地垒的依据是什么？（可多选）",
     evidenceOptions: ["中间地块相对上升", "两侧地块相对上升", "存在两条断层面", "岩层向上弯曲", "地表形成块状山地", "断层面两侧岩层错位"],
     evidenceCorrect: [0, 2, 4, 5],
-    evidenceExplain: "地垒：中间地块相对两侧上升，两侧发育断层面并发生错位，地表常形成断块山。",
+    evidenceExplain: "中间地块相对上升，两侧发育断层面并错位，地表形成断块山。",
     questions: [
       { q: "1. 该构造组合属于？", options: ["地垒", "地堑", "逆断层", "背斜"], correct: 0, explain: "两断层之间中间地块上升，为地垒。" },
       { q: "2. 对应的地貌类型是？", options: ["断块山", "断陷盆地", "褶皱山", "冲积平原"], correct: 0, explain: "地垒常发育为断块山（如华山、庐山）。" },
       { q: "3. 若在图中修隧道，应？", options: ["避开断层带，在完整岩体中选择", "沿断层带施工以减少爆破", "必须穿越中间地块核部", "选在盆地中部"], correct: 0, explain: "断层带岩体破碎、富水，工程必须绕避。" },
       { q: "4. 该构造最可能由哪种应力形成？", options: ["水平拉张（张应力）", "水平挤压（压应力）", "重力堆积", "岩浆顶托"], correct: 0, explain: "地垒、地堑由拉张应力下的一系列正断层组合而成。" },
-      { q: "5. 图中能否直接判断岩层新老关系？", options: ["能：核部老", "能：核部新", "不能：断层已把同层错开，需凭层序化石", "不能：岩层都是水平的"], correct: 2, explain: "断层使同一岩层在两侧错位，判断新老需依据原始层序与化石，不能只看位置。" },
+      { q: "5. 图中能否直接判断岩层新老关系？", options: ["能：核部老", "能：核部新", "不能：断层已把同层错开，需凭层序化石", "不能：岩层都是水平的"], correct: 2, explain: "断层使同一岩层错位，判断新老要靠原始层序与化石，不能只看位置。" },
     ],
     svg: <ProfileHorstSVG />,
   },
@@ -215,8 +215,7 @@ export function ProfileExam() {
                       本组得分 <b className="t-mono text-clay">{score}</b> / {total}
                     </p>
                     <p className="mt-2 max-w-sm text-[13px] leading-relaxed text-ink-faint">
-                      判读的顺序永远是：先看构造证据（弯曲/错位/新老），再结合侵蚀历史推断地貌，
-                      最后落到资源与工程意义。
+                      先看构造证据，再结合侵蚀历史推断地貌，最后落到资源与工程。
                     </p>
                   </div>
                   <button className="btn btn-primary" onClick={restart}>
@@ -294,7 +293,7 @@ export function ProfileExam() {
                       <p className="mt-1 text-[13.5px] leading-relaxed text-ink-soft">{q.explain}</p>
                       {qi === 0 && (
                         <p className={"mt-2 border-t pt-2 text-[12.5px] leading-relaxed " + (evCorrect ? "text-moss" : "text-clay")}>
-                          判读依据：{evCorrect ? "全部命中 ✓ " : "还需补充 —— "}
+                          判读依据：{evCorrect ? "全部命中 ✓ " : "还需补充："}
                           <span className="text-ink-soft">{p.evidenceExplain}</span>
                         </p>
                       )}

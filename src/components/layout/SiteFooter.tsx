@@ -7,7 +7,7 @@ export function SiteFooter() {
         <div>
           <p className="text-[15px] font-bold">地质构造实验室</p>
           <p className="mt-1 max-w-md text-[13px] leading-relaxed text-chalk-dim">
-            人教版高中地理「地质构造」互动数字实验室。操作、观察、判断、解释、总结——让岩层自己说话。
+            人教版高中地理「地质构造」互动教学。
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-chalk-dim">
@@ -21,7 +21,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-night-3">
         <div className="shell flex flex-wrap items-center justify-between gap-2 py-3 text-[11px] text-chalk-dim/70">
-          <span>面向高中地理课堂 · 地质构造与地貌（内力作用 / 外力作用）</span>
+          <span>面向高中地理课堂 · 地质构造与地貌</span>
           <span className="t-mono">STRATA · FAULT · FOLD · EROSION</span>
         </div>
       </div>

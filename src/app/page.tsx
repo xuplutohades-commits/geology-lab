@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, PencilRuler, SearchCheck, MessageSquareText, Lightbulb } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 
 const ENTRIES = [
@@ -8,7 +8,7 @@ const ENTRIES = [
     href: "/basics",
     title: "地质构造基础",
     en: "FOUNDATIONS",
-    desc: "拖动水平挤压力，观察岩层从水平到弯曲的完整过程。",
+    desc: "拖动挤压力，看岩层从水平变成褶皱。",
     color: "#c9a169",
     svg: <FlatStrata />,
   },
@@ -17,7 +17,7 @@ const ENTRIES = [
     href: "/fold",
     title: "褶皱实验室",
     en: "FOLD LAB",
-    desc: "背斜与向斜、核部新老关系、背斜成谷的2000万年侵蚀实验。",
+    desc: "背斜、向斜、核部新老，还有2000万年侵蚀。",
     color: "#c05b2c",
     svg: <FoldGlyph />,
   },
@@ -26,7 +26,7 @@ const ENTRIES = [
     href: "/fault",
     title: "断层实验室",
     en: "FAULT LAB",
-    desc: "拉张、挤压、水平错动，亲手制造正断层、逆断层与地垒地堑。",
+    desc: "拉张、挤压、水平错动，形成正逆断层与地垒地堑。",
     color: "#3c6a85",
     svg: <FaultGlyph />,
   },
@@ -35,7 +35,7 @@ const ENTRIES = [
     href: "/evolution",
     title: "构造演化与地貌",
     en: "TIME MACHINE",
-    desc: "沉积·褶皱·断裂·侵蚀·河流切割，拖动时间轴看地貌如何形成。",
+    desc: "沉积、褶皱、断层、侵蚀，一条时间轴走完。",
     color: "#65744c",
     svg: <EvolveGlyph />,
   },
@@ -44,7 +44,7 @@ const ENTRIES = [
     href: "/application",
     title: "实际应用",
     en: "FIELD TASKS",
-    desc: "找水、找油气、修隧道、选坝址——用地质构造知识解决真实问题。",
+    desc: "找水、找油气、修隧道、选坝址。",
     color: "#b98a2f",
     svg: <ApplyGlyph />,
   },
@@ -53,7 +53,7 @@ const ENTRIES = [
     href: "/quiz",
     title: "判读训练",
     en: "INTERPRET",
-    desc: "剖面判读、反直觉题、真实案例，把知识变成判断力。",
+    desc: "剖面判读、反直觉题、真实案例。",
     color: "#8d8778",
     svg: <QuizGlyph />,
   },
@@ -66,14 +66,9 @@ export default function Home() {
 
       {/* 六大实验入口 */}
       <section className="section-pad shell">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="eyebrow mb-3">六个实验室</p>
-            <h2 className="t-h1">这门课，用手做完</h2>
-          </div>
-          <p className="max-w-sm text-[14px] leading-relaxed text-ink-soft">
-            每个实验都遵循同一条路线：<span className="font-bold text-ink">操作 → 观察 → 判断 → 解释 → 总结</span>。
-          </p>
+        <div className="mb-10">
+          <p className="eyebrow mb-3">六个实验室</p>
+          <h2 className="t-h1">实验入口</h2>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -105,46 +100,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 教学理念 */}
+      {/* 实验流程提示条 */}
       <section className="border-y border-line bg-paper-2/50">
-        <div className="shell section-pad">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.15fr]">
-            <div>
-              <p className="eyebrow mb-3">教学理念</p>
-              <h2 className="t-h2 leading-snug">
-                不是告诉学生结论，
-                <br />
-                而是让学生自己操作、观察，再得出结论。
-              </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
-                一张静态的“背斜示意图”很难留下印象。但当学生亲手把挤压力从 0% 推到 100%，
-                看着水平岩层一点点拱起，他记住的不再是一张图，而是一个过程。
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              {[
-                { icon: <PencilRuler className="size-5" />, k: "操作", d: "拖动滑块，改变力的方向与大小，控制地质过程", c: "text-clay" },
-                { icon: <SearchCheck className="size-5" />, k: "观察", d: "记录岩层弯曲方向、新老关系与地貌变化", c: "text-water" },
-                { icon: <MessageSquareText className="size-5" />, k: "判断", d: "在关键节点做出选择：这是背斜还是向斜？", c: "text-moss" },
-                { icon: <Lightbulb className="size-5" />, k: "总结", d: "把现象归纳为结论：构造—地貌—工程—资源", c: "text-gold" },
-              ].map((s, i, arr) => (
-                <div key={s.k} className="relative flex items-center gap-4 rounded-xl border border-line bg-card p-4">
-                  <span className={`grid size-10 shrink-0 place-items-center rounded-lg bg-paper-2 ${s.c}`}>{s.icon}</span>
-                  <div>
-                    <p className="text-[15px] font-extrabold">
-                      <span className="t-mono mr-2 text-[12px] text-ink-faint">0{i + 1}</span>
-                      {s.k}
-                    </p>
-                    <p className="mt-0.5 text-[13px] text-ink-soft">{s.d}</p>
-                  </div>
-                  {i < arr.length - 1 && (
-                    <ArrowRight className="absolute -right-3 top-1/2 hidden size-4 -translate-y-1/2 text-ink-faint lg:block" />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="shell flex flex-wrap items-center justify-center gap-x-3 gap-y-2 py-4 text-[14px] font-bold text-ink-soft">
+          操作 <ArrowRight className="size-3.5" /> 观察 <ArrowRight className="size-3.5" /> 判断 <ArrowRight className="size-3.5" /> 解释 <ArrowRight className="size-3.5" /> 总结
         </div>
       </section>
 
@@ -153,14 +112,12 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-2">
           <Link href="/fold" className="group relative overflow-hidden rounded-2xl bg-night p-8 text-chalk transition-transform duration-300 hover:-translate-y-1">
             <p className="t-mono mb-2 text-[11px] tracking-[0.2em] text-clay">02 · 褶皱实验室</p>
-            <h3 className="text-[22px] font-extrabold">背斜山，为什么可能变成背斜谷？</h3>
-            <p className="mt-2 max-w-sm text-[14px] text-chalk-dim">启动 2000 万年侵蚀时间轴，亲眼看地形反转如何发生。</p>
+            <h3 className="text-[22px] font-extrabold">背斜山为什么可能变成背斜谷？</h3>
             <ArrowRight className="mt-5 size-5 text-clay transition-transform duration-300 group-hover:translate-x-1.5" />
           </Link>
           <Link href="/application" className="group relative overflow-hidden rounded-2xl bg-card p-8 transition-transform duration-300 hover:-translate-y-1" style={{ border: "1px solid #dcd5c2" }}>
             <p className="t-mono mb-2 text-[11px] tracking-[0.2em] text-water">05 · 实际应用</p>
-            <h3 className="text-[22px] font-extrabold">石油，为什么藏在背斜里？</h3>
-            <p className="mt-2 max-w-sm text-[14px] text-ink-soft">选择钻探位置，找到油气藏；再试试向斜、断层，看看会发生什么。</p>
+            <h3 className="text-[22px] font-extrabold">石油为什么藏在背斜里？</h3>
             <ArrowRight className="mt-5 size-5 text-water transition-transform duration-300 group-hover:translate-x-1.5" />
           </Link>
         </div>

@@ -11,9 +11,9 @@ import { Slider, Segmented, StatusChip } from "@/components/ui/Controls";
 const BANDS = 8;
 
 export function foldStateOf(p: number): { status: string; desc: string } {
-  if (p < 0.02) return { status: "水平岩层", desc: "岩层呈水平状态，尚未受力变形。" };
-  if (p < 0.28) return { status: "轻微弯曲", desc: "岩层开始受力，发生弹性弯曲。" };
-  if (p < 0.58) return { status: "明显褶皱", desc: "岩层弯曲加深，出现褶皱雏形。" };
+  if (p < 0.02) return { status: "水平岩层", desc: "尚未受力。" };
+  if (p < 0.28) return { status: "轻微弯曲", desc: "岩层开始弯曲。" };
+  if (p < 0.58) return { status: "明显褶皱", desc: "弯曲加深，成褶在即。" };
   return { status: "完整褶皱", desc: "岩层发生弯曲变形、没有明显断裂 → 褶皱。" };
 }
 
@@ -141,7 +141,7 @@ export function FoldSimulator({
           <p className="eyebrow mb-2">实验 01 · 水平挤压</p>
           <h3 className="text-[19px] font-extrabold">拖动滑块，挤压岩层</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            水平挤压力持续作用 → 岩层弯曲 → 形成褶皱。观察弯曲方向与岩层新老关系。
+            水平挤压 → 岩层弯曲 → 褶皱。注意弯曲方向与核部新老。
           </p>
         </div>
 

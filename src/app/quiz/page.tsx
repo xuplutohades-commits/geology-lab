@@ -7,13 +7,13 @@ const CASES = [
   {
     name: "华山",
     tag: "地垒 → 断块山",
-    desc: "秦岭北麓断块强烈抬升，形成“自古华山一条路”的块状山地。",
+    desc: "秦岭北麓断块抬升形成的块状山地。",
     color: "#c05b2c",
   },
   {
     name: "渭河平原",
     tag: "地堑 → 断陷盆地",
-    desc: "夹于秦岭与黄土塬之间下沉，渭河蜿蜒其中——教科书级地堑。",
+    desc: "夹于秦岭与黄土塬之间下沉，渭河沿地堑发育。",
     color: "#3c6a85",
   },
   {
@@ -37,8 +37,7 @@ export default function QuizPage() {
         <p className="eyebrow mb-4">06 · 地质构造判读训练</p>
         <h1 className="t-h1">读图，是地理的基本功</h1>
         <p className="t-lead mt-4">
-          先做综合剖面题（没把握就先查判读要点），再挑战反直觉题，最后看看真实世界里的地质构造。
-          不是背答案，而是训练“从剖面中找证据”的顺序与方法。
+          从剖面里找证据：先答综合题，再试反直觉题。
         </p>
       </header>
 
@@ -62,7 +61,7 @@ export default function QuizPage() {
           <p className="eyebrow mb-2">综合题训练</p>
           <h2 className="t-h2">一份剖面，五道设问</h2>
           <p className="mt-2 max-w-2xl text-[14px] leading-relaxed text-ink-soft">
-            按考试节奏完成：类型判断 → 判读依据 → 新老关系 → 地貌成因 → 实际意义。每答对一题 +1 分。
+            类型判断 → 判读依据 → 新老关系 → 地貌成因 → 实际意义。每题 1 分。
           </p>
         </div>
         <ProfileExam />

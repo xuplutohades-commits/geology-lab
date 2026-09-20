@@ -22,13 +22,13 @@ type Stage = {
 };
 
 const STAGES: Stage[] = [
-  { id: "sediment", label: "沉积形成", en: "SEDIMENT", pres: 0, erosion: 0, fault: false, river: false, uplift: false, forces: ["外"], desc: "海洋与湖泊中，泥沙逐层沉积，形成水平岩层：新在上、老在下。" },
-  { id: "uplift", label: "地壳抬升", en: "UPLIFT", pres: 0.12, erosion: 0, fault: false, river: false, uplift: true, forces: ["内"], desc: "地壳运动使沉积地层整体抬升出水，岩层开始暴露于地表。" },
-  { id: "fold", label: "挤压褶皱", en: "FOLDING", pres: 0.95, erosion: 0, fault: false, river: false, uplift: false, forces: ["内"], desc: "水平挤压力持续作用，岩层弯曲成背斜与向斜——褶皱构造形成。" },
-  { id: "fault", label: "断裂错动", en: "FAULTING", pres: 0.55, erosion: 0, fault: true, river: false, uplift: false, forces: ["内"], desc: "应力继续积累，岩层超过强度发生断裂，两侧地块沿断层面错动。" },
-  { id: "erosion", label: "风化侵蚀", en: "EROSION", pres: 0.55, erosion: 62, fault: true, river: false, uplift: false, forces: ["外"], desc: "外力登场：风化、流水把高处削低，褶皱顶部开始被剥蚀。" },
-  { id: "river", label: "河流切割", en: "RIVER CUT", pres: 0.55, erosion: 96, fault: true, river: true, uplift: false, forces: ["外"], desc: "河流沿构造薄弱带下切，V 形谷加深，地层剖面全部出露。" },
-  { id: "modern", label: "现代地貌", en: "MODERN LANDSCAPE", pres: 0.55, erosion: 128, fault: true, river: true, uplift: false, forces: ["内", "外"], desc: "内力造形、外力改造，最终地貌是二者长期共同作用的结果——背斜谷与残丘并存。" },
+  { id: "sediment", label: "沉积形成", en: "SEDIMENT", pres: 0, erosion: 0, fault: false, river: false, uplift: false, forces: ["外"], desc: "泥沙逐层沉积，形成水平岩层：新在上、老在下。" },
+  { id: "uplift", label: "地壳抬升", en: "UPLIFT", pres: 0.12, erosion: 0, fault: false, river: false, uplift: true, forces: ["内"], desc: "地壳运动使地层整体抬升出水。" },
+  { id: "fold", label: "挤压褶皱", en: "FOLDING", pres: 0.95, erosion: 0, fault: false, river: false, uplift: false, forces: ["内"], desc: "水平挤压力使岩层弯曲，形成背斜与向斜。" },
+  { id: "fault", label: "断裂错动", en: "FAULTING", pres: 0.55, erosion: 0, fault: true, river: false, uplift: false, forces: ["内"], desc: "应力超过岩层强度，发生断裂，两侧地块错动。" },
+  { id: "erosion", label: "风化侵蚀", en: "EROSION", pres: 0.55, erosion: 62, fault: true, river: false, uplift: false, forces: ["外"], desc: "风化、流水把高处削低，褶皱顶部开始被剥蚀。" },
+  { id: "river", label: "河流切割", en: "RIVER CUT", pres: 0.55, erosion: 96, fault: true, river: true, uplift: false, forces: ["外"], desc: "河流沿薄弱带下切，V 形谷加深，剖面出露。" },
+  { id: "modern", label: "现代地貌", en: "MODERN LANDSCAPE", pres: 0.55, erosion: 128, fault: true, river: true, uplift: false, forces: ["内", "外"], desc: "内、外力长期共同作用的结果：背斜谷与残丘并存。" },
 ];
 
 function easeOut(v: number) { return 1 - Math.pow(1 - v, 3); }
@@ -204,7 +204,7 @@ export function EvolutionLab() {
           <p className="eyebrow mb-2">地质时间机器</p>
           <h3 className="text-[19px] font-extrabold">拖动时间轴，观察地貌形成</h3>
           <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
-            内力作用塑造构造骨架，外力作用雕刻地表细节。同一个褶皱，在不同时间尺度下呈现出完全不同的地表形态。
+            内、外力先后作用，同一个褶皱在不同阶段形态完全不同。
           </p>
         </div>
 
@@ -276,8 +276,7 @@ export function EvolutionLab() {
         </div>
 
         <p className="text-[13px] leading-relaxed text-ink-soft">
-          <b className="text-ink">核心思想：</b>地貌不是由某一次地质构造直接决定的，
-          而是<span className="font-bold text-clay">构造 + 运动 + 风化 + 侵蚀 + 流水</span>长期共同作用的结果。
+          <b className="text-ink">核心思想：</b>地貌由<span className="font-bold text-clay">构造、运动、风化、侵蚀、流水</span>长期共同塑造，而不由单次构造决定。
         </p>
       </div>
     </div>

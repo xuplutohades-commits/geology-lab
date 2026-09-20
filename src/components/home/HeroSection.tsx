@@ -80,8 +80,7 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.18 }}
             className="mt-5 max-w-md text-[17px] leading-relaxed text-chalk-dim"
           >
-            看见岩层如何运动，理解地貌如何形成。不是背结论，而是亲自挤压、拉张、侵蚀、钻探，
-            让地层自己说话。
+            看见岩层如何运动，理解地貌如何形成。
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 22 }}
@@ -196,7 +195,7 @@ export function HeroSection() {
           </div>
 
           <div className="absolute -bottom-5 -right-4 hidden rounded-xl border border-night-3 bg-night-2 px-4 py-3 text-[12.5px] text-chalk-dim shadow-xl md:block">
-            <span className="t-mono font-bold text-clay">↓</span> 挤压持续作用中——拖动滑块可以亲手控制
+            <span className="t-mono font-bold text-clay">↓</span> 拖动滑块，控制挤压力
           </div>
         </motion.div>
       </div>
