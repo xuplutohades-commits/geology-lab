@@ -125,15 +125,7 @@ function MiniHiddenFault({ active }: { active: boolean }) {
         animate={{ opacity: active ? 0.12 : 1 }}
         transition={{ duration: 1.4, delay: active ? 0.35 : 0 }}
       />
-      <motion.text
-        x="170" y="44" textAnchor="middle" fontSize="12" fontWeight="800"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: active ? 0 : 1 }}
-        transition={{ duration: 0.4 }}
-        fill="#ede8d9"
-      >
-        第四纪沉积覆盖 · 断层潜伏地表之下
-      </motion.text>
+
 
       {active && (
         <g>

@@ -27,7 +27,7 @@ type Profile = {
 const PROFILES: Profile[] = [
   {
     id: "anticline-valley",
-    name: "剖面一 · 背斜谷",
+    name: "剖面一",
     intro: "判断构造类型，说明判读依据，再回答新老关系、地貌成因与工程意义。",
     evidencePrompt: "判断背斜的依据是什么？（可多选）",
     evidenceOptions: ["中间岩层较老", "中间岩层较新", "岩层向上弯曲", "岩层向下弯曲", "岩层明显错位", "地表形成山岭", "地表形成谷地"],
@@ -44,7 +44,7 @@ const PROFILES: Profile[] = [
   },
   {
     id: "horst",
-    name: "剖面二 · 断块山地",
+    name: "剖面二",
     intro: "中间地块与两侧地块之间存在两条断裂面，判断构造与地貌。",
     evidencePrompt: "判断地垒的依据是什么？（可多选）",
     evidenceOptions: ["中间地块相对上升", "两侧地块相对上升", "存在两条断层面", "岩层向上弯曲", "地表形成块状山地", "断层面两侧岩层错位"],
@@ -70,15 +70,8 @@ function ProfileFoldSVG() {
         <path d="M20 138 Q110 60 200 112 T340 104 T500 124" fill="#57524a" />
         <path d="M20 154 Q110 76 200 128 T340 120 T500 140" fill="#6e6253" />
       </g>
-      <g>
-        <circle cx="260" cy="72" r="11" fill="#c9a169" />
-        <text x="260" y="76" textAnchor="middle" fontSize="11" fontWeight="800" fill="#1b1a14">老</text>
-      </g>
       <path d="M80 96 Q200 160 320 112" fill="none" stroke="#99a06e" strokeWidth="3" />
       <path d="M196 152 L212 152" stroke="#5d8cad" strokeWidth="4" strokeLinecap="round" />
-      <text x="420" y="86" fontSize="13" fontWeight="800" fill="#e0a875">背斜谷</text>
-      <text x="420" y="106" fontSize="11.5" fontWeight="700" fill="#a7a08d">核老翼新</text>
-      <path d="M40 214 L70 214" stroke="#8d8778" strokeWidth="1.4" strokeDasharray="3 3" />
     </svg>
   );
 }
@@ -105,9 +98,9 @@ function ProfileHorstSVG() {
       <line x1="165" y1="16" x2="150" y2="236" stroke="#d9804f" strokeWidth="2.2" />
       <line x1="355" y1="16" x2="370" y2="236" stroke="#d9804f" strokeWidth="2.2" />
       <text x="82" y="142" fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">A</text>
-      <text x="260" y={120} fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">B 地垒 ↑</text>
+      <text x="260" y={120} fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">B</text>
       <text x="437" y="142" fontSize="13" fontWeight="800" fill="#ede8d9" textAnchor="middle">C</text>
-      <text x="260" y="12" fontSize="12.5" fontWeight="800" fill="#e0a875" textAnchor="middle">断块山 · 如华山</text>
+      
     </svg>
   );
 }

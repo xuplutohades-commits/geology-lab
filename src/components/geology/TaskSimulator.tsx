@@ -159,25 +159,26 @@ function OilScene({ selected }: { selected: string | null }) {
         return <path key={i} d={d.join(" ")} fill={fills[i]} stroke="#3a352b" strokeWidth="1" />;
       })}
 
-      {/* 不透水盖层 */}
+      {/* 背斜圈闭（盖层） */}
       <path d={`M 360 116 Q 560 54 760 116 L 760 146 Q 560 88 360 146 Z`} fill="#45413a" stroke="#2e2b25" strokeWidth="1.4" />
-      <text x={560} y={102} textAnchor="middle" fontSize="13" fontWeight="800" fill="#d8d1bd">不透水盖层（泥岩）</text>
 
-      {/* 油气水透镜体 */}
-      <ellipse cx="560" cy="184" rx="120" ry="20" fill="#d9a441" opacity="0.92" />
-      <ellipse cx="560" cy="220" rx="150" ry="26" fill="#8a5a24" opacity="0.94" />
-      <ellipse cx="560" cy="266" rx="188" ry="30" fill="#3c6a85" opacity="0.72" />
-      <g fontSize="12.5" fontWeight="800">
-        <text x="560" y="189" textAnchor="middle" fill="#1b1a14">天然气</text>
-        <text x="560" y="226" textAnchor="middle" fill="#f0e6cd">石油</text>
-        <text x="560" y="271" textAnchor="middle" fill="#cfe2ee">地下水</text>
-      </g>
-
-      {/* 密度分异箭头 */}
-      <g stroke="#d8d1bd" strokeWidth="1.6" fill="none" opacity="0.75">
-        <path d="M 692 252 L 680 208" /><path d="M 686 216 L 680 208 L 680 220" />
-        <path d="M 428 210 L 440 254" /><path d="M 434 246 L 440 254 L 446 246" />
-      </g>
+      {/* 油气水次第：只有钻井揭穿背斜核部后才显示 */}
+      {selected === "A" && (
+        <g>
+          <ellipse cx="560" cy="184" rx="120" ry="20" fill="#d9a441" opacity="0.92" />
+          <ellipse cx="560" cy="220" rx="150" ry="26" fill="#8a5a24" opacity="0.94" />
+          <ellipse cx="560" cy="266" rx="188" ry="30" fill="#3c6a85" opacity="0.72" />
+          <g fontSize="12.5" fontWeight="800">
+            <text x="560" y="189" textAnchor="middle" fill="#1b1a14">天然气</text>
+            <text x="560" y="226" textAnchor="middle" fill="#f0e6cd">石油</text>
+            <text x="560" y="271" textAnchor="middle" fill="#cfe2ee">地下水</text>
+          </g>
+          <g stroke="#d8d1bd" strokeWidth="1.6" fill="none" opacity="0.75">
+            <path d="M 692 252 L 680 208" /><path d="M 686 216 L 680 208 L 680 220" />
+            <path d="M 428 210 L 440 254" /><path d="M 434 246 L 440 254 L 446 246" />
+          </g>
+        </g>
+      )}
 
       {/* 探测点 */}
       {probes.map((p) => (
@@ -274,7 +275,7 @@ function TunnelScene({ selected }: { selected: string | null }) {
       <path d={(() => { const d = ["M 0 " + tunnelSurface(0)]; for (let x = 8; x <= W; x += 8) d.push(`L ${x} ${tunnelSurface(x)}`); return d.join(" "); })()} fill="none" stroke="#99a06e" strokeWidth="2.4" strokeLinejoin="round" />
       <line x1={830} y1={tunnelSurface(830)} x2={840} y2={H} stroke="#d9804f" strokeWidth="2.4" />
       <line x1={830} y1={tunnelSurface(830)} x2={840} y2={H} stroke="#1b1a14" strokeWidth="1" strokeDasharray="5 5" opacity="0.5" />
-      <text x={860} y={120} fontSize="12.5" fontWeight="800" fill="#e0a875">断层破碎带</text>
+      
 
       {/* 探测点 */}
       {probes.map((p) => (
@@ -319,9 +320,9 @@ function DamScene({ selected }: { selected: string | null }) {
 
       {/* 石灰岩区（左岸中段）与花岗岩区（右岸） */}
       <path d={`M 460 210 Q 500 330 540 212`} fill="none" stroke="#a9a18d" strokeWidth="3" strokeDasharray="6 5" />
-      <text x={470} y={196} fontSize="12" fontWeight="800" fill="#cbc5ae">石灰岩（易溶蚀）</text>
+      
       <path d={`M 760 180 L 920 176`} fill="none" stroke="#8d8778" strokeWidth="3.6" strokeLinecap="round" />
-      <text x={790} y={166} fontSize="12" fontWeight="800" fill="#c5beb0">花岗岩（坚硬）</text>
+      
 
       {/* 断层 */}
       <line x1={350} y1={SKY + 70} x2={340} y2={H} stroke="#d9804f" strokeWidth="2.2" />

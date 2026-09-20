@@ -41,20 +41,6 @@ export default function QuizPage() {
         </p>
       </header>
 
-      {/* 判读要点 */}
-      <section className="grid gap-4 md:grid-cols-3">
-        {[
-          { t: "第一步 · 看变形", d: "岩层是连续弯曲（褶皱）还是断裂错动（断层）？", c: "text-clay" },
-          { t: "第二步 · 核对新老", d: "老背新向：核部岩层老→背斜；核部岩层新→向斜。", c: "text-water" },
-          { t: "第三步 · 连地貌", d: "结合侵蚀历史解释山/谷，再推断储油储水与工程意义。", c: "text-moss" },
-        ].map((s) => (
-          <div key={s.t} className="rounded-2xl border border-line bg-card p-6">
-            <p className={"text-[14px] font-extrabold " + s.c}>{s.t}</p>
-            <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">{s.d}</p>
-          </div>
-        ))}
-      </section>
-
       {/* 综合题训练 */}
       <section>
         <div className="mb-6">
@@ -75,6 +61,21 @@ export default function QuizPage() {
         </div>
         <CounterQuiz />
       </section>
+
+      {/* 判读要点（自查） */}
+      <section className="grid gap-4 md:grid-cols-3">
+        {[
+          { t: "第一步 · 看变形", d: "岩层是连续弯曲（褶皱）还是断裂错动（断层）？", c: "text-clay" },
+          { t: "第二步 · 核对新老", d: "老背新向：核部岩层老→背斜；核部岩层新→向斜。", c: "text-water" },
+          { t: "第三步 · 连地貌", d: "结合侵蚀历史解释山/谷，再推断储油储水与工程意义。", c: "text-moss" },
+        ].map((s) => (
+          <div key={s.t} className="rounded-2xl border border-line bg-card p-6">
+            <p className={"text-[14px] font-extrabold " + s.c}>{s.t}</p>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">{s.d}</p>
+          </div>
+        ))}
+      </section>
+
 
       {/* 真实案例 */}
       <section>
