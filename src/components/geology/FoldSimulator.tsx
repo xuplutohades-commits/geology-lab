@@ -18,7 +18,7 @@ export function foldStateOf(p: number): { status: string; desc: string } {
 }
 
 export function FoldSimulator({
-  mode = "anticline",
+  mode,
   onModeChange,
   compact = false,
 }: {
@@ -26,7 +26,9 @@ export function FoldSimulator({
   onModeChange?: (m: FoldMode) => void;
   compact?: boolean;
 }) {
+  const [modeState, setModeState] = useState<FoldMode>("anticline");
   const [pressure, setPressure] = useState(0);
+  const effMode = mode ?? modeState;
   const [showAge, setShowAge] = useState(false);
   const [showForces, setShowForces] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -40,7 +42,7 @@ export function FoldSimulator({
         thickness: LAYER_H,
         count: BANDS,
         pressure,
-        mode,
+        mode: effMode,
         amplitude: 86,
         squeeze: 0.16,
         ripple: 1.7,
@@ -115,7 +117,7 @@ export function FoldSimulator({
                     <line x1={SCENE_W / 2} y1={nameY < coreY ? nameY + 44 : coreY + 12} x2={SCENE_W / 2} y2={nameY < coreY ? coreY - 8 : coreY + 26} stroke="#e8c9b4" strokeWidth="1.6" strokeDasharray="4 4" opacity="0.7" />
                     <rect x={SCENE_W / 2 - 58} y={nameY} width="116" height="30" rx="9" fill="#c05b2c" />
                     <text x={SCENE_W / 2} y={nameY + 20} textAnchor="middle" fontSize="16" fontWeight="800" fill="#fff">
-                      {mode === "anticline" ? "背斜" : "向斜"}
+                      {effMode === "anticline" ? "背斜" : "向斜"}
                     </text>
                   </>
                 )}
@@ -127,7 +129,7 @@ export function FoldSimulator({
               <g opacity="0.94">
                 <circle cx={SCENE_W / 2} cy={coreY} r="13" fill={mode === "anticline" ? "#c9a169" : "#a6977d"} stroke="#ede8d9" strokeWidth="1.5" />
                 <text x={SCENE_W / 2} y={coreY + 4.5} textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#1b1a14">
-                  {mode === "anticline" ? "老" : "新"}
+                  {effMode === "anticline" ? "老" : "新"}
                 </text>
               </g>
             )}
@@ -147,10 +149,14 @@ export function FoldSimulator({
 
         {!compact && (
           <Segmented<FoldMode>
-            value={mode}
+            value={effMode}
             onChange={(m) => {
+              setModeState(m);
               onModeChange?.(m);
-              reset();
+              animRef.current?.stop();
+              setPlaying(false);
+              // 模式切换后保持可辨认的褶皱，避免画面"看起来没反应"
+              setPressure((p) => (p < 0.35 ? 0.7 : p));
             }}
             options={[
               { value: "anticline", label: "背斜 ↗", hint: "岩层向上弯曲" },
